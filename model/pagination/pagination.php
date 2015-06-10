@@ -6,19 +6,19 @@ $perPage = isset($_GET['per-page']) && $_GET['per-page'] <=50 ? (int)$_GET['per-
 //Order by ID Number
 if(isset($_GET['orderById'])){
 	$_SESSION['sortby'] = 'stridnumber';
-		$_SESSION['orderByColorId']= "style='color:#1d1d1d'";
-		$_SESSION['orderByColorName']= "";
-		$_SESSION['orderByColorDept']= "";
 }elseif(isset($_GET['orderByName'])){
 	$_SESSION['sortby'] = 'strfullname';
-		$_SESSION['orderByColorId']= "";
-		$_SESSION['orderByColorName']= "style='color:#1d1d1d'";
-		$_SESSION['orderByColorDept']= "";
 }elseif(isset($_GET['orderByDept'])){
 	$_SESSION['sortby'] = 'strdepartment';
-		$_SESSION['orderByColorId']= "";
-		$_SESSION['orderByColorName']= "";
-		$_SESSION['orderByColorDept']= "style='color:#1d1d1d'";
+}
+
+//SearchBy
+
+if(isset($_GET['search'])){
+	$_SESSION['where']=$_GET['search'];
+	$whereClauseKey ='%'. $_SESSION['where'] . '%';
+}else{
+	$whereClauseKey ='%';
 }
 
 //echo $orderBy =$_SESSION['sortby'];
@@ -35,8 +35,11 @@ $sql =
 	"SELECT SQL_CALC_FOUND_ROWS	
 	ID, strpicture, stridnumber, strfullname, strcompany, strdepartment, strposition, strdateofhire
 	FROM tms_notify 
-	WHERE stridnumber LIKE '1111%'
-	ORDER BY {$orderBy}
+		WHERE (stridnumber LIKE '{$whereClauseKey}' 
+			OR strfullname LIKE '{$whereClauseKey}' 
+			OR strdepartment LIKE '{$whereClauseKey}'
+			OR strposition LIKE '{$whereClauseKey}')
+		ORDER BY {$orderBy}
 	LIMIT {$start}, {$perPage}"; //start with 0 & LIMIT 5
 
 $stmt = $db->prepare($sql);

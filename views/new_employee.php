@@ -39,11 +39,44 @@
             </div>
         </div><!-- row -->
         <?php include $views->page('menu.php');?>
- 	<div class="tableView">
+ 	<div class="tableview">
+		<form action="" id='searchByForm' method="GET">
+ 			<table class="pull-right">
+ 				<tr>
+ 					<td style="padding-right:5px;padding-bottom:3px">
+ 						<input type="hidden" class="form-control" name="search" id="searchInputBox">
+ 					</td>
+ 					<td style="padding-right:5px;padding-bottom:3px"><button class="btn btn-primary btn-sm" id="resetButton">Reset</button> </td>
+ 				</tr>
+ 			</table>
+ 		</form>
+
+ 		
+ 		<form action="" id='searchByForm' method="GET">
+ 			<table class="pull-right">
+ 				<tr>
+ 					<td style="padding-right:5px;padding-bottom:3px">
+ 						<input type="text" class="form-control" name="search" id="searchInputBox">
+ 					</td>
+ 					<td style="padding-right:5px;padding-bottom:3px"><button class="btn btn-primary btn-sm" id="searchButton">Search</button> </td>
+ 					</tr>
+ 			</table>
+ 		</form>
+ 		
 		<table class="table">
 			<th>Picture</th>
-			<th id="thId" <?php echo $_SESSION['orderByColorId']; ?> title='Order by ID'>ID # <i class="fa fa-caret-down"></i></th>
-			<th id="thName" <?php echo $_SESSION['orderByColorName']; ?> title='Order by Name'>Name <i class="fa fa-caret-down"></i></th>
+			<th title='Order by ID'>
+				<a href="?page=<?php echo $page ?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>&orderById=set">
+					ID # <i class="fa fa-caret-down"></i>
+				</a>
+			</th>
+			
+			<th title='Order by Name'>
+				<a href="?page=<?php echo $page ?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>&orderByName=set">
+					Name <i class="fa fa-caret-down"></i>
+				</a>
+			</th>
+			
 			<th>Company</th>
 			<th id="thDept" <?php echo $_SESSION['orderByColorDept']; ?> title='Order by Department'>Department <i class="fa fa-caret-down"></i></th>
 			<th>Position</th>
@@ -58,7 +91,7 @@
 					<td><?php echo $employees->strdepartment; ?></td>
 					<td><?php echo $employees->strposition; ?></td>
 					<td><?php echo $employees->strdateofhire; ?></td>
-					<td><button id="<?php echo $employees->ID; ?>">Details</button> </td>
+					<td align='center'><button id="<?php echo $employees->ID; ?>">Details</button> </td>
 				</tr>
 			<?php endforeach; ?>
 		</table>

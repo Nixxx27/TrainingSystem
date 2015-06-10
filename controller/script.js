@@ -32,7 +32,7 @@ function userValidation(){
 
 // Sort function
 (function(){
-	$thId = $('#thId'),
+	/*$thId = $('#thId'),
 	$thName = $('#thName'),
 	$thDept =$('#thDept');
 
@@ -50,6 +50,6 @@ function userValidation(){
 		$('#orderByDeptForm').submit();
 	}).on('mouseenter',function(){$thDept.removeAttr('style').addClass('blueLink')})
 	  .on('mouseleave',function(){$thDept.removeClass('blueLink')})
+*/
 
-
-})()
+})();
