@@ -12,4 +12,3 @@ if (session_id() == '' ) {
   		header("location:pleaselogin.php");
 	}
 }/* if session start */
-    

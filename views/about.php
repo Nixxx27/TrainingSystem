@@ -1,4 +1,3 @@
-<?php include 'class.php' ?>
         <footer>
             <div class="row">
                 <div class="col-lg-9 col-md-9">
@@ -14,9 +13,6 @@
                 </a>
             </div>
 		</div>
-
-
-<!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -30,7 +26,7 @@
         <hr>
         <div class="row">
           <div class="col-sm-10 pull-left">
-              <img class="img-responsive" src="<?php echo systemUrl('img')?>/tmslogo.png" title="Training Management System" >
+              <img class="img-responsive" src="<?php echo $libs->page('img/tmslogo.png') ?>" title="Training Management System" >
           </div> 
         </div>
       </div>
@@ -52,11 +48,7 @@
               <li><a onclick="javascript:alert('Coming Soon!')" href="#"  title="check my Linked In"><i class="fa fa-2x fa-linkedin-square"></i></a></li>
               <li><a onclick="javascript:alert('Coming Soon!')" href="#"  title="visit me on Twitter"><i class="fa fa-2x fa-twitter-square"></i></a></li>
             </ul>
-           <!-- <ul class="list-inline">
-              <li><img class="img-responsive" id="footerlogo" src="img/system/skylogtrans.png"></li>
-               <li><img class="img-responsive" id="footerlogo"  src="img/system/skykittrans.png"></li>
-          </ul>-->
-        <hr>   
+          <hr>   
         <h5>
             <p>
                 Info & Comm Tech Contact Details:

@@ -1,6 +1,7 @@
 <?php
-	require 'sec_access.php';
-    include 'class.php';
+	include '../init/config.php';
+    include '../init/securityAccess.php';
+    include $model->page('config.php');
 
 //User input
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -57,7 +58,7 @@ $pages =ceil($total / $perPage) //rounding up
 
 <head>
     <?php 
-        include 'head.php';
+        include $views->page('head.php');
         echo pageTitle("Notification"); 
     ?>
 
@@ -88,7 +89,7 @@ $pages =ceil($total / $perPage) //rounding up
                 <label>Time:</label>    <br / >
             </div>
         </div><!-- row -->
-        <?php include('menu.php');?>
+        <?php include $views->page('menu.php');?>
  	<div class="article">
 		<table class="table">
 			<th>Picture</th>
@@ -103,7 +104,7 @@ $pages =ceil($total / $perPage) //rounding up
 
 			<?php foreach($employees as $employees):?>
 				<tr>
-					<td align='center'><a href="<?php echo systemUrl('img').'/'.$employees->strpicture ?>" target="_blank" title='click to enlarge'><img src="<?php echo systemUrl('img').'/'.$employees->strpicture ?>" height='35px' width='auto'></a></td>
+					<td align='center'><a href="<?php echo $libs->page('img').'/'.$employees->strpicture ?>" target="_blank" title='click to enlarge'><img src="<?php echo $libs->page('img').'/'.$employees->strpicture ?>" height='35px' width='auto'></a></td>
 					<td><?php echo $employees->stridnumber; ?></td>
 					<td><?php echo strtoupper($employees->strfullname); ?></td>
 					<td><?php echo $employees->strcompany; ?></td>

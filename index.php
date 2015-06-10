@@ -1,9 +1,3 @@
 <?php
-
-
-include 'handler/views.php';
-
-
- $views = new views();
- $views->test();
+header('location: views/');
 
