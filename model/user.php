@@ -1,22 +1,15 @@
 <?php
+namespace user\config;
 
 include_once 'connection.php';
 
-/* ======= FUNCTIONS  =========== */
-
-function redirect($page){
-	echo "<script type=text/javascript>window.location.href='$page';</script>";
-}
-
-
-/* ======= CLASS =========== */
 class User{
 
 	private $username, $password;
 	public  $error_msg;
 
 	public function __construct(){
-		$this->db = new connection();
+		$this->db = new \connection();
 		$this->db=$this->db->dbConnect();
 	}
 
@@ -27,15 +20,15 @@ class User{
 	}
 
 	public function verifyUser($url){
-		$libs = new libs();
+		$libs = new \libs();
 		$sql = "SELECT * FROM login WHERE log_un=? AND log_pw=? LIMIT 1";
 		$stmt = $this->db->prepare($sql);
-		$stmt->bindParam(1,$this->username,PDO::PARAM_STR);
-		$stmt->bindParam(2,$this->password,PDO::PARAM_STR);
+		$stmt->bindParam(1,$this->username,\PDO::PARAM_STR);
+		$stmt->bindParam(2,$this->password,\PDO::PARAM_STR);
 		$stmt->execute();
 
 		if($stmt->rowCount()==1){
-			while($rows=$stmt->fetch(PDO::FETCH_OBJ)){
+			while($rows=$stmt->fetch(\PDO::FETCH_OBJ)){
 				$this->error_msg = "";
 				session_start();
 				$_SESSION['tmsSucessfullLogin']=TRUE;

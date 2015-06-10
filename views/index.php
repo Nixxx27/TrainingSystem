@@ -1,8 +1,8 @@
 <?php
     include '../init/config.php';
-    include '../init/securityAccess.php';
-    include $model->page('config.php');
-    $user = new User();
+    include $model->page('user.php');
+
+    $user = new \user\config\User();
     
     $username =  trim(htmlspecialchars($_POST['username']));
     $password =  trim(htmlspecialchars($_POST['password']));
@@ -18,7 +18,7 @@
 <head>
     <?php 
         include $views->page('head.php');
-        echo pageTitle("Login Page"); 
+        pageTitle("Login Page"); 
     ?>
     <style>
         .requireFields{
@@ -28,7 +28,6 @@
         .table>tbody>tr>td{
            border-top:none;
         }
-
     </style>
 </head>
 

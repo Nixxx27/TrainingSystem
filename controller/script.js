@@ -9,12 +9,12 @@ function userValidation(){
 		(username.val()=='')? 
 			(username.addClass('requireFields'),
 			password.removeClass('requireFields'),
-			username.animate({height: '+=30'}).delay(500).animate({height: '-=30'}),
+			username.animate({height: '+=20'}).delay(500).animate({height: '-=20'}),
 			username.focus())
 		: 	
 			(username.removeClass('requireFields'),
 			password.addClass('requireFields'),
-			password.animate({height: '+=30'}).delay(500).animate({height: '-=30'}),
+			password.animate({height: '+=20'}).delay(500).animate({height: '-=20'}),
 			password.focus())
 	}else{
 		$('#loginForm').submit();

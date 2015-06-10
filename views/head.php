@@ -8,5 +8,10 @@
 	<link href="<?php echo $libs->page('css/menu.css') ?>" rel="stylesheet">
 	<link href="<?php echo $libs->page('fontsawesome/css/font-awesome.min.css') ?>" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" href="<?php echo $libs->page('img/icon/skyicon.ico') ?>" type="image/x-icon">
+	<?php
+		function pageTitle($title){
+		echo "<title>Training Management System | ".$title .  "</title>";
+		}
+	?>
 
 	
