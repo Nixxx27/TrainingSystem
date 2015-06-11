@@ -1,0 +1,21 @@
+.requireFields{
+    background-color:#cdd1d7;
+}
+.table>tbody>tr>td{
+    border-top:none;
+}
+
+.onhover:hover{
+	background-color: #d8d4d8;
+}
+
+
+noscript div {
+    background-color: red;
+    color:yellow;
+    padding-left:5px;
+}
+
+.cursorpointer{
+    cursor:pointer;
+}

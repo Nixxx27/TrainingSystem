@@ -23,6 +23,20 @@ function userValidation(){
 
 
 
+//Search New Employee
+(function(){
+	var $searchButton=$('#searchByForm').find('#searchButton'),
+		$searchInputBox =$('#searchByForm').find('#searchInputBox');
+	
+	$searchButton.on('click',function(){
+		if($searchInputBox.val()==''){
+			$searchInputBox.attr('placeholder','Required...').focus();
+			return false;
+		}
+	})
+})()
+
+
 // TITLE HOVER 
     $('[data-toggle="popover"]').popover({
         trigger: 'hover',
@@ -30,26 +44,22 @@ function userValidation(){
         });
 
 
-// Sort function
-(function(){
-	/*$thId = $('#thId'),
-	$thName = $('#thName'),
-	$thDept =$('#thDept');
+var count = 1;
 
-	$thId.on('click',function(){
-		$('#orderByIdForm').submit();
-	}).on('mouseenter',function(){$thId.removeAttr('style').addClass('blueLink')})
-	  .on('mouseleave',function(){$thId.removeClass('blueLink')})
+function transition() {
 
-	$thName.on('click',function(){
-		$('#orderByNameForm').submit();
-	}).on('mouseenter',function(){$thName.removeAttr('style').addClass('blueLink')})
-	  .on('mouseleave',function(){$thName.removeClass('blueLink')})
+    if(count == 1) {
+        $('#test').css({height: $(window).height(),width: $(window).width(),backgroundImage : 'url(Skylogisticsslider0.jpg)'})
+        count +=1;
 
-	$thDept.on('click',function(){
-		$('#orderByDeptForm').submit();
-	}).on('mouseenter',function(){$thDept.removeAttr('style').addClass('blueLink')})
-	  .on('mouseleave',function(){$thDept.removeClass('blueLink')})
-*/
+    } else if(count == 2) {
+         $('#test').css({height: $(window).height(),width: $(window).width(),backgroundImage : 'url(Skylogisticsslider1.jpg)'})
+         count +=1;
 
-})();
+    } else if(count == 3) {
+         $('#test').css({height: $(window).height(),width: $(window).width(),backgroundImage : 'url(Skylogisticsslider2.jpg)'})
+        count = 1;
+    }
+
+}
+setInterval(transition, 3000);

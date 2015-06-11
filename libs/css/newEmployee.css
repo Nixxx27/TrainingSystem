@@ -1,0 +1,26 @@
+.table>tbody>tr>td{
+  font-size: 12px;
+  font-family:arial;
+  border:1px solid;
+  background-color:#eff0f0;
+  padding:6px;
+}
+.control, th{
+font-size:1.1em;
+font-family: 'Century Gothic';
+}
+
+.control{
+    text-align: center;
+}
+    
+.control p > a {
+    font-weight: bold;
+    color:black;
+}
+
+.control p >a.selected{
+    font-weight: bold;
+    color:#1979ed;
+    border-bottom:1px solid;
+}

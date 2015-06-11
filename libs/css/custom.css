@@ -1,58 +1,11 @@
-/*!
- * Start Bootstrap - Modern Business HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-/* Global Styles */
-
 html,
 body {
     height: 100%;
-    /*background-color: #337ab7*/
 }
 
 body {
   padding-top: 20px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
-
-.img-portfolio {
-    margin-bottom: 30px;
-}
-
-.img-hover:hover {
-    opacity: 0.8;
-}
-
-/* Home Page Carousel */
-
-header.carousel {
-    height: 50%;
-}
-
-header.carousel .item,
-header.carousel .item.active,
-header.carousel .carousel-inner {
-    height: 100%;
-}
-
-header.carousel .fill {
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-size: cover;
-}
-
-#logo{
-	height:35px;
-	width: auto;
-	margin-top: -3px;
-	margin-right: 5px;
-	
-	}
-
-/* Footer Styles */
-
 footer {
     margin: 50px 0;
 }
@@ -76,12 +29,6 @@ footer {
     }
 }
 
-noscript div {
-    background-color: red;
-    color:yellow;
-    padding-left:5px;
-}
-
 /* Bootstrap Custom */
 #top-link-block.affix-top {
     position: absolute; /* allows it to "slide" up into view */
@@ -101,69 +48,6 @@ line-height: 1.1;
 color: inherit;
 }
 
-
-
-.btn-skykitchen {
-color: #fff;
-background-color: #e73e97;
-border-color: #e73e97;
-}
-
-.btn-skylogistics {
-color: #fff;
-background-color: #e51b24;
-border-color: #e51b24;
-}
-
-
-
-/* Input box */
-
-.form-control:hover {
-display: block;
-width: 100%;
-height: 34px;
-padding: 6px 12px;
-font-size: 14px;
-line-height: 1.42857143;
-color: #555;
-background-color: #fff;
-background-image: none;
-border: 1px solid #ccc;
-border-radius: 4px;
--webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
--webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
--o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-
-/* Input box */
-
-
-#footerlogo{
-    height:20px;
-}
-
-
-
-#title-image{
-    height:auto;
-    width:400px;
-}
-
-
-
-.cursorpointer{
-    cursor:pointer;
-}
-
-
-.white{
-	color:white;
-}
-
-
 .badge {
 display: inline-block;
 min-width: 10px;
@@ -178,33 +62,3 @@ vertical-align: baseline;
 background-color: #fff;
 border-radius: 15px;
 }
-
-.onhover:hover{
-	background-color: #d8d4d8;
-}
-
-.control{
-    text-align: center;
-}
-        
-.control p > a {
-    font-weight: bold;
-    color:black;
-}
-
-.control p >a.selected{
-    font-weight: bold;
-    color:#1979ed;
-    border-bottom:1px solid;
-}
-
-.blueLink{
-    color: #0f66d1;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.tableview{
-    margin-top:5px;
-}
-

@@ -1,6 +1,4 @@
 <?php
-include 'errorHandler.php';
-
 class views {
 
 	public function __construct(){
@@ -51,5 +49,7 @@ $views = new views();
 $controller = new controller();
 $libs = new libs();
 
+include 'errorHandler.php';
+include $model->page('config.php');
 
 	

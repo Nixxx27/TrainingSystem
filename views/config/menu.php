@@ -1,29 +1,16 @@
 <?php
-
-$con = mysql_connect("localhost","root","nikkoz06");
-    if (!$con){
-    die("Can not connect: " . mysql_error());
-    }
-    mysql_select_db("slpi",$con);
-
-
-        $query = "SELECT COUNT(*) AS total FROM tms_notify";
-        $result = mysql_query($query); 
-        $values = mysql_fetch_assoc($result); 
-        $num_total = $values['total'];  
-  
+$newEmployee = New newEmployee(); 
+$newEmployee->countAll();
 ?>
-
 <div id='cssmenu'>
 <ul>
-
-
-  <li  class="active"><a href='<?php echo $views->page('notification.php');?>'><span><i class="fa fa-home"></i> Home</span></a></li>
+  <li  class="active"><a href='<?php echo $views->page('summary.php');?>'><span><i class="fa fa-home"></i> Home</span></a></li>
 
   
-   <li class='has-sub'><a href='#'><span><i class="fa fa-users"></i> Employees</span></a>
+   <li class='has-sub'><a href='<?php echo $views->page('new_employee.php');?>'><span><i class="fa fa-users"></i> Employees</span></a>
       <ul>
-         <li  class='has-sub'><a href="<?php echo $views->page('new_employee.php');?>"><span title="Check new hired/resigned employee">Notification <span class="badge">&nbsp;<?php echo $num_total; ?>&nbsp;</span> 
+         <li  class='has-sub'><a href="<?php echo $views->page('new_employee.php');?>"><span title="Check new hired/resigned employee">Notification
+           <span class="badge">&nbsp;<?php foreach($newEmployee->countAll as $count){echo $count->total;}?>&nbsp;</span> 
          </span></a></li>
       </ul>
    </li>
@@ -80,11 +67,4 @@ $con = mysql_connect("localhost","root","nikkoz06");
    </li>
 
 </ul>
-</div>
-
-
-
-
-
-
-
+</div>  
