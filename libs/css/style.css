@@ -19,3 +19,12 @@ noscript div {
 .cursorpointer{
     cursor:pointer;
 }
+
+.borderred{
+	border:1px solid red;
+}
+.red {
+
+	border:1px solid #286090;
+	background-color: #286090;
+}

@@ -1,5 +1,7 @@
-<?php require '../init/config.php';?>
 <?php require '../init/securityAccess.php';?>
+<?php require '../init/page.php';?>
+<?php require $model->page('class.php');?>
+<?php include $controller->page('buttons.php');?>
 <?php
 $newEmployee = New newEmployee(); 
 $newEmployee->countAll();
@@ -10,8 +12,6 @@ $newEmployee->countAll();
     <?php include $views->page('config/head.php');?>
     <?php pageTitle('Summary');?>
     <?php include $views->page('config/header.php');?>
-
-<h3 style='margin-top:20px'><strong>Hi, <?php echo $_SESSION['tmsFullname'];?> </strong></h3>
 	<hr>
 	<div class="row">
 		<div class="col-md-3">

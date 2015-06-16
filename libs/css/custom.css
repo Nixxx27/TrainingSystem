@@ -4,7 +4,12 @@ body {
 }
 
 body {
-  padding-top: 20px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 5px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-right:20px;
+    height: 100%;
+    background-image: url(../img/bg.jpg);
+    background-attachment: fixed;
+    background-repeat: repeat;
 }
 footer {
     margin: 50px 0;
@@ -55,10 +60,10 @@ padding: 3px 7px;
 font-size: 12px;
 font-weight: 700;
 line-height: 1;
-color: #26a3d9;
+color: #fff;
 text-align: center;
 white-space: nowrap;
 vertical-align: baseline;
-background-color: #fff;
+background-color: #26a3d9;
 border-radius: 15px;
 }

@@ -22,5 +22,5 @@ font-family: 'Century Gothic';
 .control p >a.selected{
     font-weight: bold;
     color:#1979ed;
-    border-bottom:1px solid;
+   border-bottom:1px solid;
 }

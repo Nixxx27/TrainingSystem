@@ -21,8 +21,6 @@ function userValidation(){
 	}
 }//userValidation
 
-
-
 //Search New Employee
 (function(){
 	var $searchButton=$('#searchByForm').find('#searchButton'),
@@ -34,7 +32,16 @@ function userValidation(){
 			return false;
 		}
 	})
-})()
+})();
+
+
+//Back
+function backHistory(){
+	$(this).on('click',function(){
+		window.history.back();
+	})
+};
+
 
 
 // TITLE HOVER 

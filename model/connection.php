@@ -11,8 +11,7 @@ class connection{
             }
     }
 
-
-    public function hrDbConnect(){
+	public function hrDbConnect(){
         try {
             return $handler = new PDO ('mysql:host=127.0.0.1;dbname=slpi','root','nikkoz06');
             $handler->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -22,3 +21,5 @@ class connection{
             }
     }
 }//EndClass
+
+?>

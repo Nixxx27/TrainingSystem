@@ -6,3 +6,4 @@
     <script src="<?php echo $libs->page('js/jquery-1.11.3.min.js') ?>"></script>
    	<script src="<?php echo $libs->page('js/bootstrap.min.js') ?>"></script>
     <script src="<?php echo $controller->page('script.js') ?>"></script>
+ 	<script src="<?php echo $libs->page('js/menu.js') ?>"></script>

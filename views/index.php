@@ -1,7 +1,6 @@
-<?php
-    include '../init/config.php';
-    include $controller->page('user/login.php');  
-?>
+<?php include '../init/page.php'; ?>
+<?php include $controller->page('user/login.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

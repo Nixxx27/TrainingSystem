@@ -4,12 +4,12 @@ $newEmployee->countAll();
 ?>
 <div id='cssmenu'>
 <ul>
-  <li  class="active"><a href='<?php echo $views->page('summary.php');?>'><span><i class="fa fa-home"></i> Home</span></a></li>
+  <li  class="active"><a href='<?php echo $views->page('summary.php');?>'><span><i class="fa fa-home"></i> Dashboard</span></a></li>
 
   
    <li class='has-sub'><a href='<?php echo $views->page('new_employee.php');?>'><span><i class="fa fa-users"></i> Employees</span></a>
       <ul>
-         <li  class='has-sub'><a href="<?php echo $views->page('new_employee.php');?>"><span title="Check new hired/resigned employee">Notification
+         <li  class='has-sub'><a href="<?php echo $views->page('new_employee.php');?>"><span title="Check new hired/resigned employee">New
            <span class="badge">&nbsp;<?php foreach($newEmployee->countAll as $count){echo $count->total;}?>&nbsp;</span> 
          </span></a></li>
       </ul>
@@ -49,7 +49,7 @@ $newEmployee->countAll();
    </li>
 
 
-  <li class='last has-sub'><a href='#'><span><i class="fa fa-cog"></i> Settings</span></a>
+  <li class='last has-sub'><a href='#'><span><i class="fa fa-cog fa-spin"></i> Settings</span></a>
       <ul>
           <li class='has-sub'><a href='<?php echo $views->page('part-num.php');?>'><span><i class="fa fa-user-plus"></i> Participant No</span></a></li>
           <li class='has-sub'><a href='<?php echo $views->page('change-color.php');?>'><span><i class="fa fa-eyedropper"></i> Change Name Color</span></a></li>
@@ -57,7 +57,7 @@ $newEmployee->countAll();
    </li>
 
 
-    <li><a href='#'><span><i class="fa fa-question-circle"></i> About</span></a></li>
+    <li><a href='#' id="about"><span><i class="fa fa-question-circle"></i> About</span></a></li>
 
    <li class='last has-sub'><a href='#'><span><i class="fa fa-user"></i> Account</span></a>
       <ul>

@@ -50,6 +50,3 @@ $controller = new controller();
 $libs = new libs();
 
 include 'errorHandler.php';
-include $model->page('config.php');
-
-	
