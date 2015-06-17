@@ -5,7 +5,7 @@ body {
 
 body {
     padding-top: 5px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    padding-right:20px;
+    padding-right:10px;
     height: 100%;
     background-image: url(../img/bg.jpg);
     background-attachment: fixed;
@@ -66,4 +66,11 @@ white-space: nowrap;
 vertical-align: baseline;
 background-color: #26a3d9;
 border-radius: 15px;
+}
+
+
+.panel-default > .panel-heading {
+  color: white;
+  background-color: #337ab7;
+  border-color: #5882FA;
 }

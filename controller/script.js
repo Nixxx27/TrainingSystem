@@ -43,7 +43,6 @@ function backHistory(){
 };
 
 
-
 // TITLE HOVER 
     $('[data-toggle="popover"]').popover({
         trigger: 'hover',

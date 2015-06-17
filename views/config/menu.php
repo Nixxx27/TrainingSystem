@@ -4,10 +4,10 @@ $newEmployee->countAll();
 ?>
 <div id='cssmenu'>
 <ul>
-  <li  class="active"><a href='<?php echo $views->page('summary.php');?>'><span><i class="fa fa-home"></i> Dashboard</span></a></li>
+  <li  class="active"><a href='<?php echo $views->page('dashboard.php');?>'><span><i class="fa fa-home"></i> Dashboard</span></a></li>
 
   
-   <li class='has-sub'><a href='<?php echo $views->page('new_employee.php');?>'><span><i class="fa fa-users"></i> Employees</span></a>
+   <li class='has-sub'><a href='<?php echo $views->page('new_employee.php');?>'><span><i class="fa fa-users"></i> Employees <i style="font-size:12px" class="fa fa-caret-down"></i></span> </a>
       <ul>
          <li  class='has-sub'><a href="<?php echo $views->page('new_employee.php');?>"><span title="Check new hired/resigned employee">New
            <span class="badge">&nbsp;<?php foreach($newEmployee->countAll as $count){echo $count->total;}?>&nbsp;</span> 
@@ -16,7 +16,7 @@ $newEmployee->countAll();
    </li>
 
 
-    <li class='last has-sub'><a href='#'><span><i class="fa fa-user"></i> Training</span></a>
+    <li class='last has-sub'><a href='#'><span><i class="fa fa-user"></i> Training <i style="font-size:12px" class="fa fa-caret-down"></i></span></a>
       <ul>
           <li class='has-sub'><a href='<?php echo $views->page('position-training.php');?>'><span>Training per Position <i class="fa fa-chevron-right"></i></span></a>
               <ul>
@@ -49,7 +49,7 @@ $newEmployee->countAll();
    </li>
 
 
-  <li class='last has-sub'><a href='#'><span><i class="fa fa-cog fa-spin"></i> Settings</span></a>
+  <li class='last has-sub'><a href='#'><span><i class="fa fa-cog fa-spin"></i> Settings <i style="font-size:12px" class="fa fa-caret-down"></i></span></a>
       <ul>
           <li class='has-sub'><a href='<?php echo $views->page('part-num.php');?>'><span><i class="fa fa-user-plus"></i> Participant No</span></a></li>
           <li class='has-sub'><a href='<?php echo $views->page('change-color.php');?>'><span><i class="fa fa-eyedropper"></i> Change Name Color</span></a></li>

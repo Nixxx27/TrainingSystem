@@ -15,17 +15,90 @@ $employeeDetails = new employee;
 $employeeDetails->getEmpDetails($id,NULL);
 $employeeDetails->viewEmpDetails();
 ?>
-<span style="cursor:pointer" onClick="backHistory();" title='Back'><?php $buttons->btnImage('back.png','40px','auto'); ?></span>
+<table>
+	<tr>
+		<td style="padding-right:20px"><span style="cursor:pointer" onClick="backHistory();" title='Back'><?php $buttons->btnImage('back.png','40px','auto'); ?></span></td>
+		<td><h2><strong><?php echo $employeeDetails->strfullname; ?></strong></h2></td>
+	</tr>
+</table>
 
-<?php foreach ($employeeDetails->viewEmpDetails() as $employees): ?>
+
 	<hr>
-	<h4><small><strong>Name:</small> <strong><?php echo $employees->strfullname; ?></strong> </h4>
-	<h4><small><strong>Position:</small> <strong><?php echo $employees->strposition; ?></strong> </h4>
+	<div class="row">
+		<div class="col-md-3">
+			<?php $buttons->empImage($employeeDetails->strpicture,'250px','auto'); ?>
+		</div>
 
-<?php endforeach; ?>
+		<div class="col-md-9">
+			<?php 
+				$strcompany = $employeeDetails->strcompany;
+				switch ($strcompany ) {
+					case 'SkyKitchen':
+						$strcompany = 'SkyKitchen Philippines Inc.';
+						$color = '#e73e97';
+					break;
+				default:
+						$strcompany = 'SkyLogistics Philippines Inc.';
+						$color = '#e51b24';
+					break;
+				}
+			?>
+			<table>
+				<tr>
+					<td  colspan="2"><h3 style="color:<?php echo $color ?>"><strong><?php echo $strcompany;?></strong></h3></td>
+				</tr>
+				<tr>
+					<td style="padding-right:10px"><h4><strong><small>Department: </small></td>
+					<td><h4><strong><?php echo $employeeDetails->strdepartment; ?></strong></h4></td>
+				</tr>
+				<tr>
+					<td><h4><strong><small>Position: </small></td>
+					<td><h4><strong><?php echo $employeeDetails->strposition; ?></strong></h4></td>
+				</tr>
 
-<hr>
-<h4><strong>Required Training: </strong></h4>
+				<tr>
+					<td><h4><strong><small>Date Hired: </small></td>
+					<td><h4><strong><?php echo $employeeDetails->strdateofhire; ?></strong></h4></td>
+				</tr>
+			</table>
+		</div>
+	</div><!--row-->
+
+	
+	<!-- REQUIRED TRAINING -->
+	<?php
+	$training = new training();
+	$training->getPosition($employeeDetails->strposition);
+	$training->trainingPerPosition();
+	?>
+	<br/>
+	<div class="row">
+	
+		<div class="col-md-6">
+			
+			<table class="table">
+				<th>Required Training </th>
+				<th>Status </th>
+				<th>Recurrent </th>
+				<th> </th>
+				<?php foreach ($training->trainingPerPosition() as $training): ?>
+					<tr>
+						<td><?php echo $training->strtraining ?></td>
+						<td>Enrolled</td>
+						<td>2 years</td>
+						<td><button class="btn btn-primary btn-sm" disabled>Enroll</button></td>
+					</tr>
+				<?php endforeach; ?>
+			</table>
+			
+		</div>
+	
+	</div><!--row-->
+	
+
+
+<?php echo $employeeDetails->noRecord; ?>
+
         
 
 <?php include $views->page('config/about.php');?>

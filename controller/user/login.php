@@ -7,7 +7,7 @@
     
     if(!empty($username) && !empty($password)){
         $user->getUserDetails($username,$password);
-        $url = 'summary.php';
+        $url = 'dashboard.php';
         $user->verifyUser($url);
     }
  ?>
