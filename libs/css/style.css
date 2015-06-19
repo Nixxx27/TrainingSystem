@@ -52,3 +52,13 @@ noscript div {
   font-size: 20px;
   text-align: center;
 }
+
+.borderNikristle {
+  border:1px solid #286090;
+  border-top:none;
+
+}
+
+.textShadow {
+  text-shadow:1px 1px #2b2c2c;
+}

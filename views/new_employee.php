@@ -30,7 +30,9 @@
 	 				</tr>
 	 			</table>
 			</form>
+
  		</div>
+
 
 		<table class="table">
 			<th>PICTURE</th>

@@ -29,23 +29,25 @@ $employeeDetails->viewEmpDetails();
 			<?php $buttons->empImage($employeeDetails->strpicture,'250px','auto'); ?>
 		</div>
 
-		<div class="col-md-9">
+		<div class="col-md-9 ">
 			<?php 
 				$strcompany = $employeeDetails->strcompany;
 				switch ($strcompany ) {
 					case 'SkyKitchen':
 						$strcompany = 'SkyKitchen Philippines Inc.';
 						$color = '#e73e97';
+						$img ="<img src=". $libs->page('img/skykitchenlogo.png') . " width='25px' height='auto'>";
 					break;
 				default:
 						$strcompany = 'SkyLogistics Philippines Inc.';
 						$color = '#e51b24';
+						$img ="<img src=". $libs->page('img/skylogisticslogo.png') . " width='25px' height='auto'>";
 					break;
 				}
 			?>
 			<table>
 				<tr>
-					<td  colspan="2"><h3 style="color:<?php echo $color ?>"><strong><?php echo $strcompany;?></strong></h3></td>
+					<td colspan="2"><h3 style="color:<?php echo $color ?>"><strong><?php $strcompany;?></strong></h3></td>
 				</tr>
 				<tr>
 					<td style="padding-right:10px"><h4><strong><small>Department: </small></td>
@@ -67,26 +69,31 @@ $employeeDetails->viewEmpDetails();
 	
 	<!-- REQUIRED TRAINING -->
 	<?php
-	$training = new training();
-	$training->getPosition($employeeDetails->strposition);
-	$training->trainingPerPosition();
+	$requiredTraining = new training();
+	$requiredTraining->getPosition($employeeDetails->strposition);
+	$requiredTraining->trainingPerPosition();
+
+	$employeeRecord = new employee();
 	?>
 	<br/>
 	<div class="row">
 	
 		<div class="col-md-6">
-			
 			<table class="table">
 				<th>Required Training </th>
 				<th>Status </th>
 				<th>Recurrent </th>
 				<th> </th>
-				<?php foreach ($training->trainingPerPosition() as $training): ?>
+				<?php foreach ($requiredTraining->trainingPerPosition() as $requiredTraining): ?>
+				<?php
+					$employeeRecord->getTraining($requiredTraining->train_num_id,$employeeDetails->stridnumber);
+				 	$employeeRecord->checkIfEnroll();
+				 ?>
 					<tr>
-						<td><?php echo $training->strtraining ?></td>
-						<td>Enrolled</td>
-						<td>2 years</td>
-						<td><button class="btn btn-primary btn-sm" disabled>Enroll</button></td>
+						<td><?php echo $requiredTraining->strtraining ?></td>
+						<td><?php echo $employeeRecord->strtrainstat ?></td>
+						<td><?php echo $requiredTraining->strrecurrent . "mos." ?></td>
+						<td><?php echo $employeeRecord->buttonAction ?></td>
 					</tr>
 				<?php endforeach; ?>
 			</table>

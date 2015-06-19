@@ -15,9 +15,9 @@ $newEmployee->countAll();
 	
 <div class="row"  style="margin-top:50px">
 	<div class="col-sm-3"> 
-		<div class="panel panel-default">
+		<div class="panel panel-default borderNikristle">
 			<div class="panel-heading">
-   			 	<h3 class="panel-title"> <strong><i class="fa fa-th-large"></i> SUMMARY</strong></h3>
+   			 	<h3 class="panel-title textShadow"> <strong><i class="fa fa-th-large"></i> SUMMARY</strong></h3>
   			</div>
   			<div class="panel-body">
     			<table class="table" border='1px'>
@@ -41,7 +41,7 @@ $newEmployee->countAll();
 	<div class="col-sm-3"> 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-   			 	<h3 class="panel-title"> <strong><i class="fa fa-bell-o"></i> Notification</strong></h3>
+   			 	<h3 class="panel-title textShadow"> <strong><i class="fa fa-bell-o"></i> Notification</strong></h3>
   			</div>
   			<div class="panel-body">
     			Basic panel example
@@ -52,15 +52,12 @@ $newEmployee->countAll();
 	<div class="col-sm-3"> 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-   			 	<h3 class="panel-title"> <strong>SUMMARY 3</strong></h3>
+   			 	<h3 class="panel-title textShadow"> <strong>How's the weather</strong></h3>
   			</div>
   			<div class="panel-body">
-    			Basic panel example
-  			</div>
+    		</div>
 		</div>
 	</div>
 </div><!-- row -->
 <?php include $views->page('config/about.php');?>
 <?php include $views->page('config/footer.php'); ?>
-
-   

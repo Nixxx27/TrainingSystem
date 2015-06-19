@@ -34,6 +34,7 @@ class employee extends connect{
 	public $idnum,$noRecord;
 	public $strpicture,$stridnumber,$strfullname,$strcompany,
 			$strdepartment,$strdateofhire,$stremploymentstatus,$strposition;
+	public 	$training,$buttonAction;
 
 	public function __construct(){
 	parent::__construct();
@@ -69,6 +70,37 @@ class employee extends connect{
 
 	}
 
+	public function getTraining($training,$stridnumber){
+		$this->training =$training;
+		$this->stridnumber =$stridnumber;
+	}
+
+	public function checkIfEnroll(){
+	
+	$this->sql = "SELECT * FROM tms_ml WHERE strtraining=? AND stridnumber=?";
+	$this->stmt = $this->db->prepare($this->sql);
+	$this->stmt->bindParam(1,$this->training, PDO::PARAM_INT);
+	$this->stmt->bindParam(2,$this->stridnumber, PDO::PARAM_STR);
+	$this->stmt->execute();
+	//return $this->employee = $this->stmt->fetchAll(PDO::FETCH_OBJ);
+	if($this->stmt->rowCount()){
+		while($this->rows= $this->stmt->fetch(PDO::FETCH_OBJ)){
+			$this->strtrainstat = $this->rows->strtrainstat;
+			$this->buttonAction = "<form action='employeeTrainingDetails.php'>
+			<button class='btn btn-info btn-sm'>view details</button>
+			<input type='hidden' name='strstatus' value='$this->strtrainstat'>
+			<input type='hidden' name='strtraining' value='$this->training'>
+			</form>";
+
+		}
+	}else{
+		$this->strtrainstat = "n/a";
+		$this->buttonAction = "<button class='btn btn-primary btn-sm'>Enroll now</button>";
+	}
+
+	}
+
+
 }//employee
 
 
@@ -85,7 +117,7 @@ class training extends connect {
 
 	public function trainingPerPosition(){
 		$this->sql =
-		"SELECT t.strtraining,t.strrecurrent 
+		"SELECT t.train_num_id,t.strtraining,t.strrecurrent 
 		FROM pos_train_db p
 		INNER JOIN training_tbl t ON
 		t.train_num_id=p.train_num

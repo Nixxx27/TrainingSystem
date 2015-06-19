@@ -42,12 +42,13 @@ function backHistory(){
 	})
 };
 
-
 // TITLE HOVER 
     $('[data-toggle="popover"]').popover({
         trigger: 'hover',
         'placement': 'top'
         });
+
+
 
 
 var count = 1;
