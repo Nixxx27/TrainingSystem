@@ -1,11 +1,19 @@
 <?php include '../init/page.php'; ?>
 <?php include $controller->page('user/login.php'); ?>
+<?php include $controller->page('buttons.php');?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php include $views->page('config/head.php');?>
     <?php pageTitle('Login Page');?>
+    <style type="text/css">
+
+    td {
+        padding:5px
+    }
+    </style>
 
 </head>
 
@@ -14,14 +22,15 @@
     <!-- Container -->
     <div class="container">
         <section class="row">
-            <div class="col-lg-7 col-md-7 col-sm-6">
-                <h3><i class="fa fa-cube fa-spin fa-5x"></i>
-                <img class="img-responsive" src="<?php echo $libs->page('img/tmslogo.png') ?>"></h3>
+             <p style="font-size:40px;font-weight:bold">  <i class="fa fa-cube fa-spin"></i> <span style="color:#337ab7">Training</span> Management System</p>
+            <div class="col-lg-12" style="background-color:#337ab7;height:5px;"></div>
+            <hr>
+            <div class="col-lg-7 col-md-7">
+                        <?php $buttons->btnImage('training1.jpg','auto','auto','img-responsive'); ?>
             </div>
-            
-            <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-5 col-sm-offset-1 ">
-                <h3><strong> Login Page</strong></h3>
-                <table class="table">
+            <div class="col-lg-5 col-md-5 col-sm-12 pull-right">
+               <p>
+                     <table>
                     <tr>
                         <td><h5><i class="fa fa-user"></i> User Name</h5></td>
                         <td><input type="text" class="form-control"  name="username" id="username" /></td>
@@ -32,8 +41,8 @@
                     </tr>  
                     <tr>
                         <td colspan="2" align="right">
-                            <button type="button" id='signIn' onClick="userValidation()" class="btn btn-primary">Sign In</button>
-                            <button type="submit" class="btn btn-success">CLEAR <i class="fa fa-times-circle"></i></button>
+                            <button type="button" id='signIn' onClick="userValidation()" class="btn btn-primary">Sign In <i class="fa fa-sign-in"></i></button>
+                            <button type="submit" class="btn btn-info">Clear <i class="fa fa-times-circle"></i></button>
                         </td>
                     </tr>  
                     <tr>
@@ -47,7 +56,9 @@
                         </td>
                     </tr>
                 </table>    
+                </p>
             </div>
+           
         </section>
         <?php include $views->page('config/about.php');?>
     </div><!-- /.container -->

@@ -7,8 +7,8 @@ class buttons{
 	$this->libs = new libs();
 	}
 	
-	public function btnImage ($btn,$height,$width) {
-	echo "<img src=". $this->libs->page('img/') . $btn . " height= '" . $height . "'width='" . $width . "'>";
+	public function btnImage ($btn,$height,$width,$class) {
+	echo "<img src=". $this->libs->page('img/') . $btn . " height= '" . $height . "'width='" . $width  . "' class='" . $class. "'>";
 	}
 
 	public function EmpImage ($btn,$height,$width) {

@@ -1,3 +1,6 @@
+.hidden-display{
+  display:none;
+}
 .requireFields{
     background-color:#cdd1d7;
 }
@@ -31,6 +34,9 @@ noscript div {
 
 }
 
+li {
+  padding-bottom: 5px;
+}
 
 .circle {
   position: relative;
@@ -44,7 +50,7 @@ noscript div {
   @shadow: rgba(0, 0, 0, .1);
   @shadow-length: 4px;
   -webkit-box-shadow: 0 @shadow-length 0 0 @shadow;
-          box-shadow: 0 @shadow-length 0 0 @shadow;
+   box-shadow: 0 @shadow-length 0 0 @shadow;
   text-shadow: 0 @shadow-length 0 @shadow;
   background: #286090;
   color: white;
@@ -53,12 +59,28 @@ noscript div {
   text-align: center;
 }
 
-.borderNikristle {
+.border-blue {
   border:1px solid #286090;
   border-top:none;
+  margin-right:100px;
 
 }
 
 .textShadow {
   text-shadow:1px 1px #2b2c2c;
+}
+
+.squareStyle{
+opacity:0.6;
+cursor:pointer;
+}
+
+
+.css-typing
+{
+    width: 30em;
+    white-space:nowrap;
+    overflow:hidden;
+    -webkit-animation: type 5s steps(50, end);
+    animation: type 5s steps(50, end);
 }

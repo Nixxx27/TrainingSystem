@@ -39,7 +39,7 @@ class User{
 				header('location:'. $url);
 				}
 			}else{
-				$this->error_msg = "<h4><strong><img src=" . $libs->page('img/system/error.png') ." height='35px' width='auto'> Error : username or password.</strong></h4>";
+				$this->error_msg = "<h4><strong><img src=" . $libs->page('img/error.png') ." height='35px' width='auto'> Error : username or password.</strong></h4>";
 			}
 		}
 }#endClass

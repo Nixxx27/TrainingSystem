@@ -1,3 +1,4 @@
+//INDEX =====================
 function userValidation(){
 	var msg=$('#msg'),
 		username = $('form').find('#username'),
@@ -21,7 +22,8 @@ function userValidation(){
 	}
 }//userValidation
 
-//Search New Employee
+
+//NEW EMPLOYEE ==========================
 (function(){
 	var $searchButton=$('#searchByForm').find('#searchButton'),
 		$searchInputBox =$('#searchByForm').find('#searchInputBox');
@@ -35,7 +37,31 @@ function userValidation(){
 })();
 
 
-//Back
+
+//DASHBOARD ======================
+(function(){
+	var $panel= $('.panel');
+		
+	$panel.animate({marginRight:'0'},'slow');
+	
+	$panel.on('mouseenter',function(){
+		$(this).addClass('squareStyle');
+		})
+		.on('mouseleave',function(){
+		$(this).removeClass('squareStyle');
+		})
+})();
+
+function skyGroupName(){
+	 $(".element").typed({
+        strings: ["SkyGroup Training Management System"],
+        typeSpeed: 20
+      });
+};
+
+
+
+//BACK
 function backHistory(){
 	$(this).on('click',function(){
 		window.history.back();
@@ -47,7 +73,6 @@ function backHistory(){
         trigger: 'hover',
         'placement': 'top'
         });
-
 
 
 
@@ -70,3 +95,9 @@ function transition() {
 
 }
 setInterval(transition, 3000);
+
+//SYSTEM TITLE
+
+(function(){
+	 $(".element").text('SkyGroup Training Management System');
+})();

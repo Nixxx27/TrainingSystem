@@ -7,3 +7,4 @@
    	<script src="<?php echo $libs->page('js/bootstrap.min.js') ?>"></script>
     <script src="<?php echo $controller->page('script.js') ?>"></script>
  	<script src="<?php echo $libs->page('js/menu.js') ?>"></script>
+ 	<script src="<?php echo $libs->page('js/typed.js') ?>"></script>
