@@ -47,7 +47,7 @@ $employeeDetails->viewEmpDetails();
 			?>
 			<table>
 				<tr>
-					<td colspan="2"><h3 style="color:<?php echo $color ?>"><strong><?php $strcompany;?></strong></h3></td>
+					<td colspan="2"><h3 style="color:<?php echo $color ?>"><strong><?php echo $strcompany;?></strong></h3></td>
 				</tr>
 				<tr>
 					<td style="padding-right:10px"><h4><strong><small>Department: </small></td>
