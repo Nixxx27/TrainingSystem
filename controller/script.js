@@ -20,7 +20,7 @@ function userValidation(){
 	}else{
 		$('#loginForm').submit();
 	}
-}//userValidation
+};//userValidation
 
 
 //NEW EMPLOYEE ==========================
@@ -35,6 +35,25 @@ function userValidation(){
 		}
 	})
 })();
+
+
+//TRAINING PER POSITION
+function trainingRecurrent(){
+	var $training = $('#train_num').val();
+	var $recurrent = $('#recurrent');
+	$.ajax({
+	type: 'POST',
+	url: "../model/ajax.php", 
+	data: {func: 'fname',
+			value: $training},
+		success: function(result){
+	 	   	$recurrent.html(result);
+	 	}
+	});
+
+
+};
+
 
 
 
@@ -52,6 +71,7 @@ function userValidation(){
 		})
 })();
 
+
 function skyGroupName(){
 	 $(".element").typed({
         strings: ["SkyGroup Training Management System"],
@@ -62,10 +82,13 @@ function skyGroupName(){
 
 
 //BACK
-function backHistory(){
-	$(this).on('click',function(){
+function backHistory(url){
+	if (!url){
 		window.history.back();
-	})
+	} else {
+		window.location.href = url;
+	}
+
 };
 
 // TITLE HOVER 
@@ -101,3 +124,13 @@ setInterval(transition, 3000);
 (function(){
 	 $(".element").text('SkyGroup Training Management System');
 })();
+
+
+
+
+//REFRESH PAGE
+function refreshPage(){
+	location.reload();
+}
+
+

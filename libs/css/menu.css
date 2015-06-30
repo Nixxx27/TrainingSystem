@@ -26,7 +26,7 @@
   font-size: 20px;
   font-weight: bold;
   display: block;
-  background: #337ab7;
+  background: #103f6c;
   color: #ffffff;
   border-bottom: 1px solid #286090;
 }
@@ -72,7 +72,8 @@
   font-size: 13px;
 }
 #cssmenu ul ul a:hover {
-  color: #337ab7;
+  color: #103f6c;
+  font-weight: bold;
 }
 #cssmenu ul ul li.odd {
   background: #f4f4f4;

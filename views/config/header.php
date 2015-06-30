@@ -18,4 +18,3 @@
 <div class="row ">
     <div class="col-sm-4 col-md-2"><?php include $views->page('config/menu.php');?></div>
     <div class="col-sm-8 col-md-offset-1 col-md-9" style="padding-right:50px">
-

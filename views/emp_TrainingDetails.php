@@ -27,13 +27,13 @@
 	?>
 <table>
 	<tr>
-		<td style="padding-right:20px"><span style="cursor:pointer" onClick="backHistory();" title='Back'><?php $buttons->btnImage('back.png','40px','auto'); ?></span></td>
+		<td style="padding-right:20px"><span style="cursor:pointer" onClick="backHistory();" title='Back'><?php $buttons->backButton(); ?></span></td>
 		<td><h2><strong><?php echo $training->trainingName; ?></strong></h2></td>
 	</tr>
 </table>
 	<hr>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<table class="table" border="1">
 				<tr>
 					<td>Status:</td>

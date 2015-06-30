@@ -1,3 +1,4 @@
+</div>	<!-- /.top col -->
 </div> <!-- /.container -->
 
 </body>

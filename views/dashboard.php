@@ -24,7 +24,7 @@ $newEmployee->countAll();
 				<tr>
 					<td><strong>New Employees:</strong></td>
 					<td title="view details">
-						<a href="<?php echo $views->page('new_employee.php')?>?page=1&per-page=10&search=">
+						<a href="<?php echo $views->page('emp_NewEmployee.php')?>?page=1&per-page=10&search=">
 							<?php foreach($newEmployee->countAll as $count){echo $count->total;}?>
 						</a>
 					</td>

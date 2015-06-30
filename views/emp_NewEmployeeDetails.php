@@ -17,7 +17,7 @@ $employeeDetails->viewEmpDetails();
 ?>
 <table>
 	<tr>
-		<td style="padding-right:20px"><span style="cursor:pointer" onClick="backHistory();" title='Back'><?php $buttons->btnImage('back.png','40px','auto'); ?></span></td>
+		<td style="padding-right:20px"><span style="cursor:pointer" onClick="backHistory();" title='Back'><?php $buttons->backButton(); ?></span></td>
 		<td><h2><strong><?php echo $employeeDetails->strfullname; ?></strong></h2></td>
 	</tr>
 </table>
@@ -25,24 +25,22 @@ $employeeDetails->viewEmpDetails();
 
 	<hr>
 	<div class="row">
-		<div class="col-md-3">
-			<?php $buttons->empImage($employeeDetails->strpicture,'250px','auto'); ?>
+		<div class="col-lg-3 col-md-3 col-sm-3">
+			<?php $buttons->empImage($employeeDetails->strpicture,'150px','auto'); ?>
 		</div>
 
-		<div class="col-md-9 ">
+		<div class="col-lg-6 col-md-6 col-sm-6 ">
 			<?php 
 				$strcompany = $employeeDetails->strcompany;
 				switch ($strcompany ) {
 					case 'SkyKitchen':
 						$strcompany = 'SkyKitchen Philippines Inc.';
 						$color = '#e73e97';
-						$img ="<img src=". $libs->page('img/skykitchenlogo.png') . " width='25px' height='auto'>";
-					break;
+						break;
 				default:
 						$strcompany = 'SkyLogistics Philippines Inc.';
 						$color = '#e51b24';
-						$img ="<img src=". $libs->page('img/skylogisticslogo.png') . " width='25px' height='auto'>";
-					break;
+						break;
 				}
 			?>
 			<table>
@@ -61,6 +59,14 @@ $employeeDetails->viewEmpDetails();
 				<tr>
 					<td><h4><strong><small>Date Hired: </small></td>
 					<td><h4><strong><?php echo $employeeDetails->strdateofhire; ?></strong></h4></td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="col-md-3">
+			<table class="table">
+				<tr>
+					<td><button class='btn btn-primary btn-xs' onClick="backHistory('tr_TrainingPerPosition.php');"> New Training </button></td>
 				</tr>
 			</table>
 		</div>

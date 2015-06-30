@@ -7,9 +7,9 @@ $newEmployee->countAll();
   <li  class="active"><a href='<?php echo $views->page('dashboard.php');?>'><span class="textShadow"><i class="fa fa-home"></i> Dashboard</span></a></li>
 
   
-   <li class='has-sub'><a href='<?php echo $views->page('new_employee.php');?>'><span class="textShadow"><i class="fa fa-users"></i> Employees <i style="font-size:12px" class="fa fa-caret-down"></i></span> </a>
+   <li class='has-sub'><a href='#'><span class="textShadow"><i class="fa fa-users"></i> Employees <i style="font-size:12px" class="fa fa-caret-down"></i></span> </a>
       <ul>
-         <li  class='has-sub'><a href="<?php echo $views->page('new_employee.php');?>"><span title="Check new hired/resigned employee">New
+         <li  class='has-sub'><a href="<?php echo $views->page('emp_NewEmployee.php');?>"><span title="Check new hired/resigned employee">New
            <span class="badge">&nbsp;<?php foreach($newEmployee->countAll as $count){echo $count->total;}?>&nbsp;</span> 
          </span></a></li>
       </ul>
@@ -18,33 +18,10 @@ $newEmployee->countAll();
 
     <li class='last has-sub'><a href='#'><span class="textShadow"><i class="fa fa-user"></i> Training <i style="font-size:12px" class="fa fa-caret-down"></i></span></a>
       <ul>
-          <li class='has-sub'><a href='<?php echo $views->page('position-training.php');?>'><span>Training per Position <i class="fa fa-chevron-right"></i></span></a>
-              <ul>
-                <li class='has-sub'><a href="<?php echo $views->page('position-training.php');?>"><span>Add New</span></a></li>
-                <li class='has-sub'><a href="<?php echo $views->page('training/pos_train_dblist.php');?>"><span>View All</span></a></li>
-              </ul>
-          </li>
-
-          <li class='has-sub'><a href='<?php echo $views->page('training/courselist.php');?>'><span>Course / Training Session <i class="fa fa-chevron-right"></i></span></a>
-              <ul>
-               <li><a href='#'><span>Create New</span></a></li>
-               <li class='last'><a href='<?php echo $views->page('training/courselist.php');?>'><span>View All</span></a></li>
-            </ul>
-          </li>
-
-          <li class='has-sub'><a href='<?php echo $views->page('training/trn_listlist.php');?>'><span>Training List <i class="fa fa-chevron-right"></i></span></a>
-             <ul>
-               <li><a href='<?php echo $views->page('training/trn_listadd.php');?>'><span>Add New</span></a></li>
-               <li class='last'><a href='<?php echo $views->page('training/trn_listlist.php');?>'><span>View All</span></a></li>
-            </ul>
-         </li>
-          
-          <li class='has-sub'><a href='#'><span>Trainor</span></a>
-            <ul>
-              <li class='last'><a href='#'><span>View All Trainors</span></a></li>
-            </ul>
-          </li>
-
+        <li class='has-sub'><a href='<?php echo $views->page('tr_TrainingPerPosition.php');?>'><span>Training per Position <i class="fa fa-chevron-right"></i></span></a></li>
+        <li class='has-sub'><a href='<?php echo $views->page('training/trn_listlist.php');?>'><span>Training List <i class="fa fa-chevron-right"></i></span></a></li>
+        <li class='has-sub'><a href='<?php echo $views->page('training/courselist.php');?>'><span>Course / Training Session <i class="fa fa-chevron-right"></i></span></a></li>
+        <li class='has-sub'><a href='#'><span>Trainor</span></a></li>
       </ul>
    </li>
 

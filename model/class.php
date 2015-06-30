@@ -38,10 +38,10 @@ class newEmployee extends connect{
 
 class employee extends connect{
 	public $idnum,$noRecord;
-	public $strpicture,$stridnumber,$strfullname,$strcompany,
+	public $id,$strpicture,$stridnumber,$strfullname,$strcompany,
 			$strdepartment,$strdateofhire,$stremploymentstatus,$strposition,
 			$strtrainstat,$strtraindate,$strtraintimein,$strtraintimeout,
-			$strtrainven,$strtrainor;
+			$strtrainven,$strtrainor,$positionLIstOption;
 
 	public 	$training,$buttonAction;
 
@@ -95,7 +95,7 @@ class employee extends connect{
 	if($this->stmt->rowCount()){
 		while($this->rows= $this->stmt->fetch(PDO::FETCH_OBJ)){
 			$this->strtrainstat = $this->rows->strtrainstat;
-			$this->buttonAction = "<form action='employeeTrainingDetails.php'>
+			$this->buttonAction = "<form action='emp_TrainingDetails.php'>
 			<button class='btn btn-info btn-sm'>view details</button>
 			<input type='hidden' name='tr' value='$this->training'>
 			<input type='hidden' name='id' value='$this->stridnumber'>
@@ -139,6 +139,21 @@ class employee extends connect{
 		}
 	}
 
+	public function positionList(){
+	$this->hrdb = new connection();
+	$this->hrdb = $this->hrdb->hrDbConnect();
+	
+	$this->sql = "SELECT DISTINCT pos FROM depttable ORDER BY pos";
+	$this->stmt = $this->hrdb->prepare($this->sql);
+	$this->stmt->execute();
+
+		if($this->stmt->rowCount()){
+			while($this->rows = $this->stmt->fetch(PDO::FETCH_OBJ)){
+			echo "<option>" . $this->rows->pos . "</option>";
+			}
+		}
+	}
+
 
 }//employee
 
@@ -158,9 +173,13 @@ class training extends connect {
 		$this->trainId = $train_num_id;
 	}
 
+	public function getTrainingID($id){
+		$this->id = $id;
+	}
+
 	public function trainingPerPosition(){
 		$this->sql =
-		"SELECT t.train_num_id,t.strtraining,t.strrecurrent 
+		"SELECT t.train_num_id,t.strtraining,t.strrecurrent,p.ID
 		FROM pos_train_db p
 		INNER JOIN training_tbl t ON
 		t.train_num_id=p.train_num
@@ -188,6 +207,101 @@ class training extends connect {
 		}
 	}
 
+	public function trainingList(){
+	$this->sql = "SELECT * FROM training_tbl ORDER BY strtraining";
+	$this->stmt = $this->db->prepare($this->sql);
+	$this->stmt->execute();
+
+		if($this->stmt->rowCount()){
+			while($this->rows = $this->stmt->fetch(PDO::FETCH_OBJ)){
+			echo "<option value='" . $this->rows->train_num_id . "''>" . $this->rows->strtraining . "</option>";
+			}
+		}
+	}
+
+
+	public function trainingRecurrent($train_id){
+	$this->sql = "SELECT train_num_id,strrecurrent 
+			FROM training_tbl
+			WHERE train_num_id =? LIMIT 1";
+	$this->stmt = $this->db->prepare($this->sql);
+	$this->stmt->bindParam(1,$train_id,PDO::PARAM_STR);
+	$this->stmt->execute();
+
+		if($this->stmt->rowCount()==1){
+			while($this->rows = $this->stmt->fetch(PDO::FETCH_OBJ)){
+			return $this->rows->strrecurrent;
+			}
+		}
+	}
+
+
+	public function addNewTrainingPerPosition(){
+	$this->sql = "SELECT pos_name,train_num FROM pos_train_db WHERE pos_name =? AND train_num=?";
+	$this->stmt = $this->db->prepare($this->sql);
+	$this->stmt->bindParam(1,$this->position,PDO::PARAM_INT);
+	$this->stmt->bindParam(2,$this->trainId,PDO::PARAM_INT);
+	$this->stmt->execute();
+
+		if($this->stmt->rowCount()==1){
+			echo "<script type=text/javascript>alert('Error: Position and Training Already exist!');window.location.href='tr_TrainingPerPosition.php?search=$this->position';</script>";
+		}else{
+			$this->sql = "INSERT INTO pos_train_db (pos_name,train_num) VALUES (?,?)";
+			$this->stmt = $this->db->prepare($this->sql);
+			$this->stmt->bindParam(1,$this->position,PDO::PARAM_INT);
+			$this->stmt->bindParam(2,$this->trainId,PDO::PARAM_INT);
+			$this->stmt->execute();
+				if($this->stmt->rowCount()==1){
+				echo "<script type=text/javascript>alert('Successfully Added!');window.location.href='tr_TrainingPerPosition.php?search=$this->position';</script>";
+				}
+			}
+	}
+
+
+	public function editTrainingPerPosition(){
+	$this->sql = "SELECT pos_name,train_num FROM pos_train_db WHERE pos_name =? AND train_num=?";
+	$this->stmt = $this->db->prepare($this->sql);
+	$this->stmt->bindParam(1,$this->position,PDO::PARAM_INT);
+	$this->stmt->bindParam(2,$this->trainId,PDO::PARAM_INT);
+	$this->stmt->execute();
+
+		if($this->stmt->rowCount()==1){
+			echo "<script type=text/javascript>alert('Error Duplicate Record found!');window.location.href='tr_TrainingPerPosition.php?search=$this->position';</script>";
+		}else{
+			$this->sql = "UPDATE pos_train_db SET pos_name=?,train_num=? WHERE ID=?";
+			$this->stmt = $this->db->prepare($this->sql);
+			$this->stmt->bindParam(1,$this->position,PDO::PARAM_INT);
+			$this->stmt->bindParam(2,$this->trainId,PDO::PARAM_INT);
+			$this->stmt->bindParam(3,$this->id,PDO::PARAM_INT);
+			$this->stmt->execute();
+				if($this->stmt->rowCount()==1){
+					echo "<script type=text/javascript>alert('Successfully Updated!');window.location.href='tr_TrainingPerPosition.php?search=$this->position';</script>";
+				}
+			}
+	}
+
+
+	public function deleteTrainingPerPosition(){
+	$this->sql = "DELETE FROM pos_train_db WHERE pos_name =? AND train_num=?";
+	$this->stmt = $this->db->prepare($this->sql);
+	$this->stmt->bindParam(1,$this->position,PDO::PARAM_INT);
+	$this->stmt->bindParam(2,$this->trainId,PDO::PARAM_INT);
+	$this->stmt->execute();
+
+		if($this->stmt->rowCount()==1){
+			echo 'success';  //for ajax
+		}else{
+			echo 'error';
+		}
+
+
+
+	}
+
+
+
+
 }//training
+
 
 ?>

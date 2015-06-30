@@ -24,13 +24,12 @@ noscript div {
 }
 
 .borderred{
-	border:1px solid red;
+border:1px solid red;
 }
 
 .blue {
-
-	border:1px solid #286090;
-	background-color: #286090;
+border:2px solid #286090;
+background-color: #286090;
 
 }
 
@@ -84,3 +83,4 @@ cursor:pointer;
     -webkit-animation: type 5s steps(50, end);
     animation: type 5s steps(50, end);
 }
+

@@ -1,7 +1,7 @@
 <?php require '../init/securityAccess.php';?>
 <?php require '../init/page.php';?>
 <?php require $model->page('class.php');?>
-<?php require $model->page('pagination.php');?>
+<?php require $model->page('pagination/newEmployee.php');?>
 <?php include $controller->page('buttons.php');?>
 
 
@@ -12,6 +12,7 @@
     <?php include $views->page('config/header.php');?>
 	<div class="row">
  		<div class="col-sm-6 col-md-6">
+ 			<h4> <strong><?php $buttons->btnImage('employee.png','40px','auto'); ?> New Employee </strong></h4>
  		</div>
 
  		<div class="col-sm-6 col-md-6" style="padding-bottom:10px;">
@@ -23,7 +24,7 @@
 	 					</td>
 	 					<td style="padding-right:5px;"><button class="btn btn-primary btn-sm" id="searchButton">Search <i class="fa fa-search"></i></button></td>
 	 					<td>
-	 						<a href="?page=<?php echo $page ?>&per-page=<?php echo $perPage ?>&search=&orderById=q">
+	 						<a href="?page=1&per-page=<?php echo $perPage ?>&search=&orderById=q">
 	 							<?php $buttons->btnImage('reset.png','35px','auto'); ?>
 							</a>
 						</td>
@@ -34,7 +35,7 @@
  		</div>
 
 
-		<table class="table">
+		<table class="table" >
 			<th>PICTURE</th>
 			<th title='Order by ID' >
 				<a href="?page=<?php echo $page ?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>&orderById=q">
@@ -66,17 +67,28 @@
 					<td><?php echo $employees->strdepartment; ?></td>
 					<td><?php echo $employees->strposition; ?></td>
 					<td><?php echo $employees->strdateofhire; ?></td>
-					<td align='center'>
-						<form action="<?php echo $views->page('viewdetails.php') ?>" method="GET">
+					<td style="width:50px">
+						<form action="<?php echo $views->page('emp_NewEmployeeDetails.php') ?>" method="GET">
 							<button id="<?php echo $employees->ID; ?>" style="font-weight:bold">Details </button> 
 							<input type='hidden' name='id' value='<?php echo $employees->stridnumber; ?>'>
 						</form>
 					</td>
 				</tr>
 			<?php endforeach; ?>
-		</table>
+		</table>`
 	</div>
 		<div class="control">
+
+			<!--Dropdown-->
+			<p>
+				<select name='hello' id='hello' onchange="test();">
+					<option><?php echo $_GET['page']; ?></option>
+						<?php for($x = 1; $x <= $pages; $x++): ?>
+							<option><?php echo $x;  ?></option>
+						<?php endfor; ?>
+				</select>
+			</p>
+
 			<!--previous-->
 			<?php $p =$page; ($p > 1)?$previous = $p-1:$previous =1?> 
 				<a href="?page=<?php echo $previous?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>"> <i class="fa fa-chevron-circle-left fa-2x"></i></a>
@@ -84,15 +96,25 @@
 			<?php $n =$page; ($n < $pages)?$next = $n+1:$next =$page;?> 
 				<a href="?page=<?php echo $next?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>"> <i id="next" class="fa fa-chevron-circle-right fa-2x"></i></a>
 			<!--Pagination number-->
-			<p>
+			<!--<p>
 				<?php for($x = 1; $x <= $pages; $x++): ?>
 				<a href="?page=<?php echo $x ?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>"
 					<?php echo($page===$x)? "class='selected'" : "";?>
 					><?php echo $x ?></a>
 				<?php endfor; ?>
-			</p>
+			</p>-->
 		</div>
 
 <?php include $views->page('config/about.php');?>
 <?php include $views->page('config/footer.php'); ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $libs->page('css/newEmployee.css')?>">
+
+<script type="text/javascript">
+	function test(){
+	var hello = $('#hello').val();
+
+	window.location.href="?page="+hello+"&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>";
+		$('select option:first-child').html('sss');
+
+	}
+</script>
