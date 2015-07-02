@@ -41,3 +41,33 @@
 	})
 
 </script>
+
+
+<!--
+init.php
+// <?php
+
+// spl_autoload_register(function($class){
+// 	require_once "classes/{$class}.php";
+
+// });
+
+// ?>
+
+
+//index.php
+// <?php
+
+// <?php require 'init.php' ?>
+<html>
+<head>
+	<title>Nikko Zabala</title>
+</head>
+<body>
+// <?php 
+// 	$login = new login();
+// 	$connect = new connect();
+// ?>
+
+</body>
+</html>
