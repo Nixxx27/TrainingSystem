@@ -1,8 +1,42 @@
 <?php require '../init/securityAccess.php';?>
 <?php require '../init/page.php';?>
 <?php require $model->page('class.php');?>
-<?php require $model->page('pagination/trainingPerPosition.php');?>
 <?php include $controller->page('buttons.php');?>
+
+
+<?php
+$pagination = new pagination();
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$perPage = isset($_GET['per-page']) && $_GET['per-page'] <=50 ? (int)$_GET['per-page'] : 10;
+
+//SearchBy
+if(isset($_GET['search'])){
+	$_SESSION['where_tr']=$_GET['search'];
+	$whereClauseKey ='%'. $_SESSION['where_tr'] . '%';
+}else{
+	$whereClauseKey ='%';
+}
+
+$orderBy = (isset($_SESSION['sortby']))?$_SESSION['sortby']:'pos_name';
+$start = ($page >1) ? ($page * $perPage) - $perPage : 0;
+
+$sql = "SELECT SQL_CALC_FOUND_ROWS	
+		p.ID,p.pos_name,t.train_num_id,t.strtraining,t.strrecurrent 
+	FROM pos_train_db p
+	INNER JOIN training_tbl t ON
+		t.train_num_id=p.train_num
+	WHERE (p.pos_name LIKE '{$whereClauseKey}' 
+			OR t.strtraining LIKE '{$whereClauseKey}' 
+			OR t.strrecurrent LIKE '{$whereClauseKey}')
+	ORDER BY pos_name
+	LIMIT {$start}, {$perPage}"; //start with 0 & LIMIT 5
+
+$pagination->getSql($sql);
+$pagination->query();
+$pagination->getPerPage($perPage);
+$pagination->pages();
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +65,7 @@
 		</div>
  	</div>
 <?php $employee = new employee(); $training = new training();?>
+
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
 		<table>
@@ -46,7 +81,7 @@
 				<th>RECURRENT</th>
 				<th></th>
 				<th></th>
-				<?php foreach($employees as $employees):?>
+				<?php foreach($pagination->employees as $employees):?>
 					<tr>
 						<td style="background-color:#d4d6d7"><?php echo ucfirst($employees->pos_name); ?></td>
 						<td><?php echo ucfirst($employees->strtraining); ?></td>
@@ -74,20 +109,21 @@
 	</div>
 
 		<div class="control">
+			<!--Dropdown-->
+			<p>
+			<select name='selectedPage' onchange="selectPage_func('<?php echo $perPage ?>','<?php echo $_SESSION['where_tr'] ?>');">
+				<option><?php echo (isset($_GET['page'])) ?  $_GET['page'] : 1; ?></option>
+				<?php for($x = 1; $x <= $pagination->pages; $x++): ?>
+					<option><?php echo $x;  ?></option>
+				<?php endfor; ?>
+			</select>
+			</p>
 			<!--previous-->
 			<?php $p =$page; ($p > 1)?$previous = $p-1:$previous =1?> 
-				<a href="?page=<?php echo $previous?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>"> <i class="fa fa-chevron-circle-left fa-2x"></i></a>
+				<a href="?page=<?php echo $previous?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where_tr'] ?>"> <i class="fa fa-chevron-circle-left fa-2x"></i></a>
 			<!--next-->
-			<?php $n =$page; ($n < $pages)?$next = $n+1:$next =$page;?> 
-				<a href="?page=<?php echo $next?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>"> <i id="next" class="fa fa-chevron-circle-right fa-2x"></i></a>
-			<!--Pagination number-->
-			<p>
-				<?php for($x = 1; $x <= $pages; $x++): ?>
-				<a href="?page=<?php echo $x ?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>"
-					<?php echo($page===$x)? "class='selected'" : "";?>
-					><?php echo $x ?></a>
-				<?php endfor; ?>
-			</p>
+			<?php $n =$page; ($n < $pagination->pages)?$next = $n+1:$next =$page;?> 
+				<a href="?page=<?php echo $next?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where_tr'] ?>"> <i id="next" class="fa fa-chevron-circle-right fa-2x"></i></a>
 		</div>
 <?php include $views->page('config/about.php');?>
 <?php include $views->page('config/footer.php'); ?>
@@ -96,7 +132,6 @@
 
 
 <script type="text/javascript">
-
 //Delete Training
 	var p = "<?php echo $_GET['p'] ?>";
    	var tid = "<?php echo $_GET['tid'] ?>";
@@ -108,14 +143,13 @@
 		data: {func: 'deleteTrainingPerPosition',
 		pos_name: p,
 		train_num_id: tid},
-		 	success: function(result){
-		 		if(result==='success'){
-		 			alert('Successfully Deleted!');
-	 			}
-	 			window.location.href = "tr_TrainingPerPosition.php";
-				p='';
-				tid='';}
-		 	
+		success: function(result){
+			if(result==='success'){
+			alert('Successfully Deleted!');
+	 		}
+	 		window.location.href = "tr_TrainingPerPosition.php";
+			p='';
+			tid='';}
 			})
     	}else{
     		window.location.href = "tr_TrainingPerPosition.php";

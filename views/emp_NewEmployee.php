@@ -1,8 +1,56 @@
 <?php require '../init/securityAccess.php';?>
 <?php require '../init/page.php';?>
 <?php require $model->page('class.php');?>
-<?php require $model->page('pagination/newEmployee.php');?>
 <?php include $controller->page('buttons.php');?>
+
+<?php
+$pagination = new pagination();
+//User input
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$perPage = isset($_GET['per-page']) && $_GET['per-page'] <=50 ? (int)$_GET['per-page'] : 10;
+
+//Order by ID Number
+if(isset($_GET['orderById'])){
+	$_SESSION['sortby'] = 'emp_idnum';
+}elseif(isset($_GET['orderByName'])){
+	$_SESSION['sortby'] = 'emp_fullname';
+}elseif(isset($_GET['orderByDept'])){
+	$_SESSION['sortby'] = 'emp_department';
+}
+
+$orderBy = (isset($_SESSION['sortby']))?$_SESSION['sortby']:'strfullname';
+
+//SearchBy
+if(isset($_GET['search'])){
+	$_SESSION['where']=$_GET['search'];
+	$whereClauseKey ='%'. $_SESSION['where'] . '%';
+}else{
+	$whereClauseKey ='%';
+}
+
+
+// Positioning
+$start = ($page >1) ? ($page * $perPage) - $perPage : 0;
+
+$sql = 
+	"SELECT SQL_CALC_FOUND_ROWS	
+	e.*,t.*
+	FROM tms_notify t INNER join
+	emp_db e ON t.stridnumber  = e.emp_idnum
+		WHERE (e.emp_idnum LIKE '{$whereClauseKey}' 
+			OR e.emp_fullname LIKE '{$whereClauseKey}' 
+			OR e.emp_department LIKE '{$whereClauseKey}'
+			OR e.emp_company LIKE '{$whereClauseKey}'
+			OR e.emp_position LIKE '{$whereClauseKey}')
+		ORDER BY {$orderBy}
+	LIMIT {$start}, {$perPage}"; //start with 0 & LIMIT 5
+
+$pagination->getSql($sql);
+$pagination->query();
+$pagination->getPerPage($perPage);
+$pagination->pages();
+
+?>
 
 
 <!DOCTYPE html>
@@ -57,43 +105,41 @@
 			<th>POSITION</th>
 			<th>DATE OF HIRE</th>
 			<th></th>
-			<?php foreach($employees as $employees):?>
+			<?php foreach($pagination->employees as $employees):?>
 				<tr>
 
-					<td align='center'><a href="<?php $buttons->imgSrc($employees->strpicture) ?>" target="_blank" title='click to enlarge'><?php $buttons->EmpImage($employees->strpicture,'30px','auto');?></a></td>
-					<td><?php echo $employees->stridnumber; ?></td>
-					<td style="background-color:#d4d6d7"><?php echo strtoupper($employees->strfullname); ?></td>
-					<td><?php echo $employees->strcompany ?></td>
-					<td><?php echo $employees->strdepartment; ?></td>
-					<td><?php echo $employees->strposition; ?></td>
-					<td><?php echo $employees->strdateofhire; ?></td>
+					<td align='center'><a href="<?php $buttons->imgSrc($employees->strpicture) ?>" target="_blank" title='click to enlarge'><?php $buttons->EmpImage($employees->emp_pic,'30px','auto');?></a></td>
+					<td><?php echo $employees->emp_idnum; ?></td>
+					<td style="background-color:#d4d6d7"><?php echo strtoupper($employees->emp_fullname); ?></td>
+					<td><?php echo $employees->emp_company ?></td>
+					<td><?php echo $employees->emp_department; ?></td>
+					<td><?php echo $employees->emp_position; ?></td>
+					<td><?php echo $employees->emp_dateofhire; ?></td>
 					<td style="width:50px">
 						<form action="<?php echo $views->page('emp_NewEmployeeDetails.php') ?>" method="GET">
-							<button id="<?php echo $employees->ID; ?>" style="font-weight:bold">Details </button> 
-							<input type='hidden' name='id' value='<?php echo $employees->stridnumber; ?>'>
+							<button style="font-weight:bold">Details </button> 
+							<input type='hidden' name='id' value='<?php echo $employees->emp_idnum; ?>'>
 						</form>
 					</td>
 				</tr>
 			<?php endforeach; ?>
-		</table>`
+		</table>
 	</div>
 		<div class="control">
-
 			<!--Dropdown-->
 			<p>
-				<select name='hello' id='hello' onchange="test();">
-					<option><?php echo $_GET['page']; ?></option>
-						<?php for($x = 1; $x <= $pages; $x++): ?>
-							<option><?php echo $x;  ?></option>
-						<?php endfor; ?>
-				</select>
+			<select name='selectedPage' onchange="selectPage_func('<?php echo $perPage ?>','<?php echo $_SESSION['where'] ?>');">
+				<option><?php echo (isset($_GET['page'])) ?  $_GET['page'] : 1; ?></option>
+				<?php for($x = 1; $x <= $pagination->pages; $x++): ?>
+				<option><?php echo $x;  ?></option>
+				<?php endfor; ?>
+			</select>
 			</p>
-
 			<!--previous-->
 			<?php $p =$page; ($p > 1)?$previous = $p-1:$previous =1?> 
 				<a href="?page=<?php echo $previous?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>"> <i class="fa fa-chevron-circle-left fa-2x"></i></a>
 			<!--next-->
-			<?php $n =$page; ($n < $pages)?$next = $n+1:$next =$page;?> 
+			<?php $n =$page; ($n < $pagination->pages)?$next = $n+1:$next =$page;?> 
 				<a href="?page=<?php echo $next?>&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>"> <i id="next" class="fa fa-chevron-circle-right fa-2x"></i></a>
 			<!--Pagination number-->
 			<!--<p>
@@ -108,13 +154,3 @@
 <?php include $views->page('config/about.php');?>
 <?php include $views->page('config/footer.php'); ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $libs->page('css/newEmployee.css')?>">
-
-<script type="text/javascript">
-	function test(){
-	var hello = $('#hello').val();
-
-	window.location.href="?page="+hello+"&per-page=<?php echo $perPage ?>&search=<?php echo $_SESSION['where'] ?>";
-		$('select option:first-child').html('sss');
-
-	}
-</script>

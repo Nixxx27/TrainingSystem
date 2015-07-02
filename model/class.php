@@ -8,13 +8,12 @@ function escape($string){
 }
 
 class connect{
-		public $db,$dbConn,
-			$hrConn,$stmt,$sql,$rows;
+	public $db,$dbConn,
+		$hrConn,$stmt,$sql,$rows;
 
-		public function __construct(){
-		
-		$this->db = new connection();
-		$this->db = $this->db->dbConnect();
+	public function __construct(){
+	$this->db = new connection();
+	$this->db = $this->db->dbConnect();
 	}
 }//connect
 
@@ -27,10 +26,10 @@ class newEmployee extends connect{
 	}
 
 	public function countAll(){
-		$this->sql ="SELECT COUNT(*) AS total FROM tms_notify";
-		$this->stmt =$this->db->prepare($this->sql);
-		$this->stmt->execute();
-		return $this->countAll =$this->stmt->fetchAll(PDO::FETCH_OBJ);
+	$this->sql ="SELECT COUNT(*) AS total FROM tms_notify";
+	$this->stmt =$this->db->prepare($this->sql);
+	$this->stmt->execute();
+	return $this->countAll =$this->stmt->fetchAll(PDO::FETCH_OBJ);
 	}
 
 }//newEmployee
@@ -41,7 +40,8 @@ class employee extends connect{
 	public $id,$strpicture,$stridnumber,$strfullname,$strcompany,
 			$strdepartment,$strdateofhire,$stremploymentstatus,$strposition,
 			$strtrainstat,$strtraindate,$strtraintimein,$strtraintimeout,
-			$strtrainven,$strtrainor,$positionLIstOption;
+			$strtrainven,$strtrainor,$positionLIstOption,
+			$session_num,$session_date;
 
 	public 	$training,$buttonAction;
 
@@ -55,7 +55,7 @@ class employee extends connect{
 	}
 	public function viewEmpDetails(){
 
-	$this->sql = "SELECT * FROM tms_notify WHERE stridnumber=?";
+	$this->sql = "SELECT * FROM emp_db WHERE emp_idnum =?";
 	$this->stmt = $this->db->prepare($this->sql);
 	$this->stmt->bindParam(1,$this->idNum, PDO::PARAM_STR);
 	$this->stmt->execute();
@@ -63,14 +63,14 @@ class employee extends connect{
 	if($this->stmt->rowCount()==1){
 		while($this->rows= $this->stmt->fetch(PDO::FETCH_OBJ)){
 			$this->noRecord = NULL;
-			$this->strpicture = $this->rows->strpicture;
-			$this->stridnumber = $this->rows->stridnumber;
-			$this->strfullname = $this->rows->strfullname;
-			$this->strcompany = $this->rows->strcompany;
-			$this->strdepartment = $this->rows->strdepartment;
-			$this->strdateofhire = $this->rows->strdateofhire;
-			$this->stremploymentstatus = $this->rows->stremploymentstatus;
-			$this->strposition = $this->rows->strposition;
+			$this->emp_idnum = $this->rows->emp_idnum;
+			$this->emp_pic = $this->rows->emp_pic;
+			$this->emp_fullname = $this->rows->emp_fullname;
+			$this->emp_company = $this->rows->emp_company;
+			$this->emp_department  = $this->rows->emp_department ;
+			$this->emp_dateofhire  = $this->rows->emp_dateofhire ;
+			$this->emp_empstatus = $this->rows->emp_empstatus;
+			$this->emp_position  = $this->rows->emp_position ;
 		}
 	}else{
 		$this->strpicture = 'no_pics.png';
@@ -104,36 +104,48 @@ class employee extends connect{
 		}
 	}else{
 	$this->strtrainstat = "n/a";
-	$this->buttonAction = "<button class='btn btn-primary btn-sm'>Enroll now</button>";
+	$this->buttonAction = "<form action='emp_EnrollEmployee.php'>
+			<button class='btn btn-primary btn-sm'>Enroll now</button>
+			<input type='hidden' name='tr' value='$this->training'>
+			<input type='hidden' name='id' value='$this->stridnumber'>
+			</form>";
 	}
 
 	}
 
 	public function viewMLByIdNumber(){
-	$this->sql = "SELECT * FROM tms_ml WHERE strtraining=? AND stridnumber=?";
-	$this->stmt = $this->db->prepare($this->sql);
+	$this->sql = "SELECT *
+	FROM tms_ml t INNER JOIN emp_db e
+		ON  e.emp_idnum = t.stridnumber
+	INNER JOIN trn_session s
+		ON t.session_num_id = s.session_num
+	WHERE strtraining=? AND stridnumber=?";
+		$this->stmt = $this->db->prepare($this->sql);
 	$this->stmt->bindParam(1,$this->training,PDO::PARAM_STR);
 	$this->stmt->bindParam(2,$this->stridnumber,PDO::PARAM_STR);
 	$this->stmt->execute();
 
 	if($this->stmt->rowCount()==1){
-			while($this->rows = $this->stmt->fetch(PDO::FETCH_OBJ)){
-				$this->strpicture 			= $this->rows->strpicture;
-				$this->stridnumber 			= $this->rows->stridnumber;
-				$this->strfullname 			= $this->rows->strfullname;
-				$this->strcompany 			= $this->rows->strcompany;
-				$this->strdepartment 		= $this->rows->strdepartment;
-				$this->strdateofhire 		= $this->rows->strdateofhire;
-				$this->stremploymentstatus 	= $this->rows->stremploymentstatus;
-				$this->strposition 			= $this->rows->strposition;
-				$this->strtraining 			= $this->rows->strtraining;
-				$this->strtrainstat			= $this->rows->strtrainstat;
-				$this->strtraindate			= $this->rows->strtraindate;
-				$this->strtraintimein 		= $this->rows->strtraintimein;
-				$this->strtraintimeout 		= $this->rows->strtraintimeout;
-				$this->strtrainven			= $this->rows->strtrainven;
-				$this->strtrainor			= $this->rows->strtrainor;
+		while($this->rows = $this->stmt->fetch(PDO::FETCH_OBJ)){
+			$this->emp_pic 				= $this->rows->emp_pic;
+			$this->emp_idnum 			= $this->rows->emp_idnum;
+			$this->emp_fullname 		= $this->rows->emp_fullname;
+			$this->emp_company 			= $this->rows->emp_company;
+			$this->emp_department 		= $this->rows->emp_department;
+			$this->emp_dateofhire 		= $this->rows->emp_dateofhire;
+			$this->emp_empstatus 		= $this->rows->emp_empstatus;
+			$this->emp_position 		= $this->rows->emp_position;
 
+			$this->strtraining 			= $this->rows->session_train_id;
+			$this->strtrainstat			= $this->rows->strtrainstat;
+			$this->session_date 		= $this->rows->session_date;
+			$this->session_in 			= $this->rows->session_in;
+			$this->session_out	 		= $this->rows->session_out;
+			
+			$this->strtraintimein 		= $this->rows->strtraintimein;
+			$this->strtraintimeout 		= $this->rows->strtraintimeout;
+			$this->session_venue		= $this->rows->session_venue;
+			$this->session_trainor		= $this->rows->session_trainor ;
 			}
 
 		}
@@ -293,15 +305,56 @@ class training extends connect {
 		}else{
 			echo 'error';
 		}
+	}
+	
+	public function trainingSession(){
+	$this->sql = "SELECT * FROM trn_session WHERE session_train_id =? ORDER BY ID DESC LIMIT 5";
+	$this->stmt = $this->db->prepare($this->sql);
+	$this->stmt->bindParam(1,$this->trainId,PDO::PARAM_INT);
+	$this->stmt->execute();
 
+	if($this->stmt->rowCount()){
+		return $this->rows = $this->stmt->fetchAll(PDO::FETCH_OBJ);
+	}else{
+		$this->noTrainingSession= "<tr><td colspan='9' style='color:red;font-weight:bold'>No Training Schedule for this training! <button class='btn btn-primary btn-md'><i class='fa fa-calendar'></i> Create</button></td></tr>";
+	}
 
 
 	}
 
 
 
-
 }//training
+
+
+
+class pagination extends connect{
+	public $employees,$total,$pages,$perPage;
+
+	public function __construct(){
+		parent::__construct();		
+	}
+
+	public function getSql($sql){
+	$this->sql = $sql;
+	}
+
+	public function query(){
+	$this->stmt = $this->db->prepare($this->sql);
+	$this->stmt->execute();
+	$this->employees = $this->stmt->fetchAll(PDO::FETCH_OBJ);
+	}
+
+	public function getPerPage($perPage){
+	$this->perPage = $perPage;
+	}
+
+	public function pages(){
+	$this->total = $this->db->query("SELECT FOUND_ROWS() as total")->fetch()['total'];
+	$this->pages = ceil($this->total / $this->perPage);
+	}
+
+}
 
 
 ?>

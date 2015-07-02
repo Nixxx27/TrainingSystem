@@ -79,6 +79,11 @@ function skyGroupName(){
       });
 };
 
+//PAGINATION
+	function selectPage_func(page,search){
+	var selectedPage = $("select[name='selectedPage']").val();
+	window.location.href="?page="+selectedPage+"&per-page=" + page +"&search=" +search+"";
+	}
 
 
 //BACK

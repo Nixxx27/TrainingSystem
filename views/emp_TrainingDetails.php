@@ -52,16 +52,20 @@
 				</tr>
 				<tr>
 					<td>Name:</td>
-					<td><?php echo $employeeDetails->strfullname; ?></td>
+					<td><?php echo $employeeDetails->emp_fullname; ?></td>
 				</tr>
 				<tr>
 					<td>Company:</td>
-					<td><?php echo $employeeDetails->strcompany;?> </span>
+					<td><?php echo $employeeDetails->emp_company;?> </span>
 					</td>
 				</tr>
 				<tr>
-					<td>Training Date:</td>
-					<td><?php echo $employeeDetails->strtraindate; ?></td>
+					<td>Date:</td>
+					<td><?php echo $employeeDetails->session_date; ?></td>
+				</tr>
+				<tr>
+					<td>Schedule:</td>
+					<td><?php echo $employeeDetails->session_in . ' - ' .  $employeeDetails->session_out 	; ?></td>
 				</tr>
 				<tr>
 					<td>Time In:</td>
@@ -73,11 +77,11 @@
 				</tr>
 				<tr>
 					<td>Venue:</td>
-					<td><?php echo $employeeDetails->strtrainven; ?></td>
+					<td><?php echo $employeeDetails->session_venue; ?></td>
 				</tr>
 				<tr>
-					<td>Venue:</td>
-					<td><?php echo $employeeDetails->strtrainor; ?></td>
+					<td>Trainor:</td>
+					<td><?php echo $employeeDetails->session_trainor; ?></td>
 				</tr>
 		</table>
 

@@ -24,7 +24,7 @@ switch ($selectedFunction) {
 		break;
 
 	default:
-		echo 'No Data Available';
+		echo 'Error in Page';
 		break;
 }
 

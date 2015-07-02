@@ -1,9 +1,41 @@
 <?php require '../init/securityAccess.php';?>
 <?php require '../init/page.php';?>
 <?php require $model->page('class.php');?>
-<?php require $model->page('pagination/trainingPerPosition.php');?>
 <?php include $controller->page('buttons.php');?>
 
+<?php
+$pagination = new pagination();
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$perPage = isset($_GET['per-page']) && $_GET['per-page'] <=50 ? (int)$_GET['per-page'] : 10;
+
+//SearchBy
+if(isset($_GET['search'])){
+	$_SESSION['where_tr']=$_GET['search'];
+	$whereClauseKey ='%'. $_SESSION['where_tr'] . '%';
+}else{
+	$whereClauseKey ='%';
+}
+
+$orderBy = (isset($_SESSION['sortby']))?$_SESSION['sortby']:'pos_name';
+$start = ($page >1) ? ($page * $perPage) - $perPage : 0;
+
+$sql = "SELECT SQL_CALC_FOUND_ROWS	
+		p.ID,p.pos_name,t.train_num_id,t.strtraining,t.strrecurrent 
+	FROM pos_train_db p
+	INNER JOIN training_tbl t ON
+		t.train_num_id=p.train_num
+	WHERE (p.pos_name LIKE '{$whereClauseKey}' 
+			OR t.strtraining LIKE '{$whereClauseKey}' 
+			OR t.strrecurrent LIKE '{$whereClauseKey}')
+	ORDER BY pos_name
+	LIMIT {$start}, {$perPage}"; //start with 0 & LIMIT 5
+
+$pagination->getSql($sql);
+$pagination->query();
+$pagination->getPerPage($perPage);
+$pagination->pages();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<?php include $views->page('config/head.php');?>
@@ -44,7 +76,7 @@
 
 ?>
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-6">
       	<form method="POST" action="">
       		<input type='hidden' name='id' value='<?php echo $_GET['id']; ?>'>
       		<table class="table">

@@ -18,7 +18,7 @@ $employeeDetails->viewEmpDetails();
 <table>
 	<tr>
 		<td style="padding-right:20px"><span style="cursor:pointer" onClick="backHistory();" title='Back'><?php $buttons->backButton(); ?></span></td>
-		<td><h2><strong><?php echo $employeeDetails->strfullname; ?></strong></h2></td>
+		<td><h2><strong><?php echo $employeeDetails->emp_fullname; ?></strong></h2></td>
 	</tr>
 </table>
 
@@ -26,12 +26,12 @@ $employeeDetails->viewEmpDetails();
 	<hr>
 	<div class="row">
 		<div class="col-lg-3 col-md-3 col-sm-3">
-			<?php $buttons->empImage($employeeDetails->strpicture,'150px','auto'); ?>
+			<?php $buttons->empImage($employeeDetails->emp_pic,'150px','auto'); ?>
 		</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6 ">
 			<?php 
-				$strcompany = $employeeDetails->strcompany;
+				$strcompany = $employeeDetails->emp_company;
 				switch ($strcompany ) {
 					case 'SkyKitchen':
 						$strcompany = 'SkyKitchen Philippines Inc.';
@@ -49,16 +49,16 @@ $employeeDetails->viewEmpDetails();
 				</tr>
 				<tr>
 					<td style="padding-right:10px"><h4><strong><small>Department: </small></td>
-					<td><h4><strong><?php echo $employeeDetails->strdepartment; ?></strong></h4></td>
+					<td><h4><strong><?php echo $employeeDetails->emp_department; ?></strong></h4></td>
 				</tr>
 				<tr>
 					<td><h4><strong><small>Position: </small></td>
-					<td><h4><strong><?php echo $employeeDetails->strposition; ?></strong></h4></td>
+					<td><h4><strong><?php echo $employeeDetails->emp_position; ?></strong></h4></td>
 				</tr>
 
 				<tr>
 					<td><h4><strong><small>Date Hired: </small></td>
-					<td><h4><strong><?php echo $employeeDetails->strdateofhire; ?></strong></h4></td>
+					<td><h4><strong><?php echo $employeeDetails->emp_dateofhire; ?></strong></h4></td>
 				</tr>
 			</table>
 		</div>
@@ -76,7 +76,7 @@ $employeeDetails->viewEmpDetails();
 	<!-- REQUIRED TRAINING -->
 	<?php
 	$requiredTraining = new training();
-	$requiredTraining->getPosition($employeeDetails->strposition);
+	$requiredTraining->getPosition($employeeDetails->emp_position);
 	$requiredTraining->trainingPerPosition();
 
 	$employeeRecord = new employee();
@@ -92,7 +92,7 @@ $employeeDetails->viewEmpDetails();
 				<th> </th>
 				<?php foreach ($requiredTraining->trainingPerPosition() as $requiredTraining): ?>
 				<?php
-					$employeeRecord->getTraining($requiredTraining->train_num_id,$employeeDetails->stridnumber);
+					$employeeRecord->getTraining($requiredTraining->train_num_id,$employeeDetails->emp_idnum);
 				 	$employeeRecord->checkIfEnroll();
 				 ?>
 					<tr>
